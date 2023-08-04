@@ -36,6 +36,41 @@ th, td {
 </style>
 </head>
 <body>
-    <!-- ここにテーブル表示 -->
+<table>
+        <tr>
+            <th></th>
+            <?php foreach ($arr['r1'] as $key => $value): ?>
+                <th><?= $key ?></th>
+            <?php endforeach; ?>
+            <th>横合計</th>
+        </tr>
+
+        <?php foreach ($arr as $rowKey => $rowData): ?>
+            <tr>
+                <th><?= $rowKey ?></th>
+                <?php $rowSum = 0; ?>
+                <?php foreach ($rowData as $colKey => $colData): ?>
+                    <td><?= $colData ?></td>
+                    <?php $rowSum += $colData; ?>
+                <?php endforeach; ?>
+                <td><?= $rowSum ?></td>
+            </tr>
+        <?php endforeach; ?>
+
+        <tr>
+            <th>縦合計</th>
+            <?php $colSum = ['c1' => 0, 'c2' => 0, 'c3' => 0]; ?>
+            <?php foreach ($arr as $rowData): ?>
+                <?php foreach ($rowData as $colKey => $colData): ?>
+                    <?php $colSum[$colKey] += $colData; ?>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+
+            <?php foreach ($colSum as $colData): ?>
+                <td><?= $colData ?></td>
+            <?php endforeach; ?>
+            <td><?= array_sum($colSum) ?></td>
+        </tr>
+    </table>
 </body>
 </html>
